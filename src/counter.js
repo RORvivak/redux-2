@@ -10,7 +10,7 @@ class Counter extends Component {
             </div> 
             
             <div align = "center">
-                <input type = "text"/>
+                <input type = "text" onChange = {(e) => this.props.change(e)}/>
             </div>
             <div align = "center">    
                 <button onClick ={this.props.increment}>ADD</button>
@@ -24,6 +24,8 @@ class Counter extends Component {
 }
 
 const mapStateToProps = (state) => {
+    // const {ctr, test} = {...state}
+    
     return(
         {
             ctr: state.counter
@@ -35,8 +37,8 @@ const mapStateToProps = (state) => {
 const mapActionToProps = (dispatch) => {
     return(
         {
-            increment: () => {
-                return(dispatch({type: "ADDER"}))
+            increment: (value) => {
+                return(dispatch({type: "ADDER", payload: {value}}))
             },
 
             subtractor: () => {
@@ -49,7 +51,13 @@ const mapActionToProps = (dispatch) => {
 
             divider: () => {
                 return(dispatch({type: "DIV"}))
+            },
+
+            change: (event) => {
+                return(dispatch({type: "SET", payload: {val: event.target.value}}))
             }
+
+
 
 
         }
